@@ -12,6 +12,7 @@ terraform.tfvars.json
 .terraformrc
 terraform.rc
 
+bfg.jar
 # Local .env files
 .env
 .env.local
