@@ -1,17 +1,19 @@
-# tf_image_name = terraform-aws
-.PHONY: plan
+# Variables
+tf_image_name = terraform-aws
 
-AWS_ACCESS_KEY_ID ?= $(shell echo $$AWS_ACCESS_KEY_ID)
-AWS_SECRET_ACCESS_KEY ?= $(shell echo $$AWS_SECRET_ACCESS_KEY)
-AWS_DEFAULT_REGION ?= $(shell echo $$AWS_DEFAULT_REGION)
+.PHONY: create_tf #destroy_tf
 
-CURRENT_DIR := $(shell pwd)
-
+# Build and run the Terraform Docker container
 create_tf:
-	docker build -t terraform-aws .
-	docker run -it -v ./ :/workspace -w /workspace -e AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) -e AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) -e AWS_DEFAULT_REGION=$(AWS_DEFAULT_REGION) terraform-aws
+    docker build -t $(tf_image_name) .
+    docker run --rm -it --env-file ./env.list $(tf_image_name)
 
-destroy_tf:
-	docker ps -a | grep terraform-aws | awk '{print $$1}' | xargs docker stop | xargs docker rm || true
-	 docker rmi terraform-aws || true
+# Stop and remove the Terraform Docker container, then remove the image
+# destroy_tf:
+#     docker ps -a | grep $(tf_image_name) | awk '{print $$1}' | xargs -r docker stop | xargs -r docker rm || true
+#     docker rmi $(tf_image_name) || true
 
+# destroy_tf:
+# 	docker ps -a | Select-String terra | ForEach-Object { docker stop $_.Line.Split(' ')[0] } | \
+#     docker ps -a | Select-String terra | ForEach-Object { docker rm $_.Line.Split(' ')[0] } | \
+#     docker image ls | Select-String terra | ForEach-Object { docker rmi $_.Line.Split(' ')[0] }
