@@ -11,7 +11,7 @@ terraform.tfvars
 terraform.tfvars.json
 .terraformrc
 terraform.rc
-
+.terraform.lock.hcl
 bfg.jar
 # Local .env files
 .env
