@@ -52,7 +52,6 @@ resource "aws_launch_template" "blog_template" {
 
 resource "aws_autoscaling_group" "blog_asg" {
   //availability_zones = ["us-east-2a", "us-east-2b"]
-  desired_capacity   = var.asg_desired_capacity
   max_size           = var.asg_max_size
   min_size           = var.asg_min_size
 

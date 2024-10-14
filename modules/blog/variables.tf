@@ -41,8 +41,3 @@ variable "asg_max_size" {
   description = "Maximum number of instances for ASG"
   default = 4
 }
-
-variable "asg_desired_capacity" {
-  description = "desired capacity for ASG"
-  default = 2
-}
