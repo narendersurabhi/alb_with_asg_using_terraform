@@ -17,6 +17,8 @@ bfg.jar
 .env
 .env.local
 
+env.list
+
 # Logs
 *.log
 
